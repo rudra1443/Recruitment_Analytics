@@ -1,0 +1,101 @@
+id,title,department,created_at,status
+1,Communications Agent Quality,HR,2023-05-13 18:09:45,Open
+2,Resource Marketing,Marketing,2022-08-09 08:48:38,Open
+3,,Marketing,2022-09-25 15:09:12,Open
+4,Intern Communications Lead,Sales,2022-11-09 16:52:36,Open
+5,Data,Engineering,2022-01-28 09:15:48,Open
+6,,Marketing,2023-08-18 11:05:30,Open
+7,Trainer Customer Scientist,Marketing,2022-05-25 11:15:25,Open
+8,,Sales,2022-12-21 08:11:45,Closed
+9,,Engineering,2023-03-22 09:24:27,Open
+10,,HR,2022-10-09 15:39:40,Closed
+11,Operations Communications Coordinator,Engineering,2022-12-14 15:45:37,Open
+12,,Engineering,2023-01-13 15:30:39,Closed
+13,Researcher Support,Engineering,2022-04-29 11:49:24,Open
+14,Administrator Intern Quality,HR,2023-06-13 09:18:06,Open
+15,Scientist Supervisor Business,HR,2022-06-03 13:57:43,Open
+16,Policy,HR,2022-05-31 09:46:58,Open
+17,Executive,HR,2022-09-28 09:37:23,Open
+18,Engineer Safety,Sales,2022-08-19 19:31:24,Open
+19,Logistics,Sales,2022-03-11 08:47:10,Open
+20,,Engineering,2022-09-06 14:30:53,Open
+21,Resource,Engineering,2023-01-18 09:19:49,Closed
+22,Business Marketing,Engineering,2023-02-08 14:15:58,Open
+23,Strategist Regulatory Technician,Sales,2022-09-02 17:18:12,Open
+24,Resource Associate,Engineering,2022-07-02 09:25:56,Open
+25,Trainer Researcher,Marketing,2022-11-15 17:45:30,Open
+26,Logistics,Sales,2022-01-23 10:50:50,Open
+27,Business,Sales,2022-01-14 12:50:47,Open
+28,Executive,Marketing,2023-07-02 16:31:26,Open
+29,,Marketing,2023-04-21 15:11:34,Open
+30,Sales Logistics Scientist,Marketing,2023-05-07 12:37:29,Closed
+31,Scientist Engineer,HR,2023-11-22 11:09:26,Open
+32,Engineer,Marketing,2022-01-23 15:09:33,Open
+33,Lead Business,Marketing,2023-05-12 10:31:52,Open
+34,Safety Coordinator Designer,Engineering,2023-08-01 09:12:29,Closed
+35,,HR,2022-07-06 07:49:38,Closed
+36,Developer,Engineering,2022-07-08 13:52:00,Open
+37,Resource Marketing,HR,2022-03-16 14:09:13,Open
+38,Representative Program,Engineering,2022-05-18 17:41:33,Closed
+39,Associate,HR,2022-06-07 10:28:51,Open
+40,,Engineering,2023-12-06 14:22:07,Open
+41,Researcher Designer Supervisor,Marketing,2022-03-30 14:37:15,Open
+42,Specialist,Sales,2023-08-14 13:48:18,Open
+43,,Sales,2023-08-20 10:15:27,Open
+44,Quality,Sales,2022-02-13 18:17:22,Open
+45,Strategist,Marketing,2023-03-21 09:13:02,Closed
+46,Customer Communications Administrator,Marketing,2022-04-01 05:17:22,Open
+47,Coordinator Business Executive,Marketing,2023-11-11 15:14:01,Open
+48,Agent Customer Architect,HR,2023-11-23 09:30:51,Open
+49,Supervisor Trainer,Sales,2022-12-03 16:20:56,Open
+50,Operations Director,HR,2022-12-10 14:16:22,Open
+51,,HR,2022-08-17 06:44:25,Open
+52,,HR,2022-10-24 07:47:17,Open
+53,Associate Officer,HR,2022-06-07 11:16:39,Open
+54,,Sales,2023-10-08 15:43:31,Open
+55,Technician,HR,2023-06-20 16:31:11,Closed
+56,,Marketing,2022-07-20 17:02:11,Closed
+57,Logistics,HR,2022-10-09 11:35:42,Open
+58,Logistics Strategist Technician,Sales,2023-01-29 10:20:28,Open
+59,Coordinator,HR,2023-09-06 12:11:10,Open
+60,Logistics Administrator Agent,HR,2023-12-25 11:38:44,Closed
+61,Consultant Data Logistics,Engineering,2023-07-09 13:41:40,Open
+62,Business Specialist,Marketing,2022-04-04 13:28:04,Closed
+63,Human Engineer Data,HR,2022-05-26 17:43:10,Open
+64,Quality Director Regulatory,Sales,2022-03-11 17:13:48,Open
+65,Regulatory,Engineering,2022-02-13 13:01:47,Open
+66,,Marketing,2022-11-20 09:56:06,Closed
+67,Architect Designer Policy,HR,2022-07-27 15:19:15,Open
+68,Business Executive,HR,2022-01-06 12:02:58,Open
+69,Specialist,HR,2022-10-23 11:02:08,Open
+70,Operations Supervisor Production,Sales,2022-05-28 21:40:34,Open
+71,Sales Resource,Sales,2023-08-10 09:17:45,Open
+72,Data Logistics,Marketing,2023-12-12 09:17:10,Open
+73,Trainer,Engineering,2022-01-11 14:18:28,Closed
+74,Program Administrator Policy,Marketing,2022-06-22 09:45:26,Closed
+75,Representative Specialist,HR,2023-03-01 14:36:03,Open
+76,Manager Engineer Policy,Sales,2022-04-17 19:39:26,Open
+77,,HR,2023-10-19 10:04:15,Closed
+78,Customer,Engineering,2022-06-22 14:19:19,Open
+79,Resource Analyst,Sales,2022-01-10 11:42:53,Open
+80,Officer,Engineering,2023-02-26 12:06:46,Closed
+81,,Sales,2023-11-02 11:24:11,Open
+82,Data,Engineering,2022-10-09 14:51:26,Open
+83,Finance,HR,2023-12-13 06:12:53,Open
+84,Manager Technician Architect,Engineering,2023-12-19 14:39:40,Open
+85,Communications Lead Manager,HR,2023-07-05 10:23:31,Open
+86,Regulatory,Engineering,2022-12-02 12:38:02,Closed
+87,Strategist,HR,2022-05-22 18:40:28,Open
+88,Business Specialist,Sales,2023-11-15 15:46:06,Open
+89,Executive Agent Human,Sales,2022-07-20 16:36:18,Open
+90,Finance Technician Communications,Sales,2022-01-04 13:28:05,Open
+91,,Marketing,2023-11-26 08:12:52,Open
+92,Scientist Researcher Operations,Marketing,2022-04-29 14:42:19,Closed
+93,Business Quality Designer,Marketing,2022-12-31 12:21:30,Closed
+94,Consultant Program,Marketing,2023-12-24 11:05:43,Open
+95,Analyst Officer Scientist,HR,2023-08-26 11:43:16,Open
+96,Policy Developer,Sales,2022-02-17 14:05:56,Closed
+97,Human Regulatory Sales,HR,2022-05-22 19:38:46,Open
+98,Regulatory,Sales,2023-03-01 14:44:27,Open
+99,Marketing Strategist Architect,Marketing,2022-02-14 12:50:54,Open
+100,Support Supervisor Production,Marketing,2023-02-21 11:06:40,Closed

@@ -1,0 +1,701 @@
+{
+  "format": "dataset-manifest/1",
+  "slug": "recruiting-pipeline",
+  "version": 4,
+  "seed": "recruiting-pipeline:1",
+  "engine": 1,
+  "engineVersion": "1.0.0",
+  "spec": {
+    "format": "dataset/1",
+    "slug": "recruiting-pipeline",
+    "name": "Recruiting Pipeline",
+    "tagline": "Job openings, candidates, applications, interviews, and offer outcomes from a recruiting pipeline.",
+    "description": "Recruiting is a critical process in any organization, and understanding the flow from job openings to candidate offers is essential for optimizing hiring strategies. This synthetic dataset captures various aspects of the recruiting pipeline, including job openings, candidates, applications, interview details, and final offer statuses. Each table is interconnected, allowing for comprehensive analyses of recruitment metrics and candidate journey stages. The data modeled here can help hiring managers and HR professionals identify bottlenecks, evaluate candidate performance, and enhance decision-making in the recruitment process. The dataset is synthetic, designed for testing and analytical purposes, and provides an ideal platform for practicing SQL queries and building BI dashboards.",
+    "domain": "hr",
+    "shape": "transactional",
+    "useCases": [
+      "test-fixtures",
+      "bi-dashboards"
+    ],
+    "keywords": [
+      "recruitment",
+      "candidates",
+      "job openings",
+      "applications",
+      "interviews",
+      "offers",
+      "HR",
+      "pipeline"
+    ],
+    "locale": "en",
+    "license": "CC0-1.0",
+    "version": 1,
+    "tables": {
+      "job_openings": {
+        "description": "Each row represents a job opening in the organization, linked to multiple applications from candidates.",
+        "rows": 100,
+        "columns": {
+          "id": {
+            "kind": "pk",
+            "description": "Unique identifier for the job opening."
+          },
+          "title": {
+            "kind": "title",
+            "description": "Title of the job opening.",
+            "nullable": true,
+            "pool": [
+              "engineer",
+              "architect",
+              "lead",
+              "associate",
+              "intern",
+              "representative",
+              "scientist",
+              "administrator",
+              "officer",
+              "manager",
+              "executive",
+              "analyst",
+              "coordinator",
+              "specialist",
+              "consultant",
+              "director",
+              "developer",
+              "strategist",
+              "researcher",
+              "designer",
+              "agent",
+              "supervisor",
+              "trainer",
+              "technician",
+              "project",
+              "program",
+              "data",
+              "operations",
+              "sales",
+              "marketing",
+              "human",
+              "resource",
+              "business",
+              "finance",
+              "customer",
+              "support",
+              "quality",
+              "safety",
+              "logistics",
+              "production",
+              "communications",
+              "policy",
+              "regulatory"
+            ],
+            "min": 1,
+            "max": 3
+          },
+          "department": {
+            "kind": "enum",
+            "values": [
+              "Engineering",
+              "Marketing",
+              "Sales",
+              "HR"
+            ],
+            "description": "Department where the job opening is located."
+          },
+          "created_at": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date and time when the job opening was created.",
+            "dayProfile": "business"
+          },
+          "status": {
+            "kind": "enum",
+            "values": [
+              "Open",
+              "Closed"
+            ],
+            "description": "Current status of the job opening.",
+            "weights": [
+              7,
+              3
+            ]
+          }
+        }
+      },
+      "candidates": {
+        "description": "Each row represents a candidate applying for jobs, linked to their applications.",
+        "rows": 200,
+        "columns": {
+          "id": {
+            "kind": "pk",
+            "description": "Unique identifier for the candidate."
+          },
+          "full_name": {
+            "kind": "fullName",
+            "description": "Full name of the candidate."
+          },
+          "email": {
+            "kind": "email",
+            "from": "full_name",
+            "description": "Email address of the candidate."
+          },
+          "applied_at": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date and time when the candidate applied.",
+            "dayProfile": "waking"
+          }
+        }
+      },
+      "applications": {
+        "description": "Each row represents an application made by a candidate for a job opening, linking candidates to job openings.",
+        "rows": {
+          "per": "candidates",
+          "via": "candidate_id",
+          "min": 1,
+          "max": 5,
+          "skew": "long-tail"
+        },
+        "columns": {
+          "id": {
+            "kind": "pk",
+            "description": "Unique identifier for the application."
+          },
+          "candidate_id": {
+            "kind": "fk",
+            "ref": "candidates.id",
+            "description": "Reference to the candidate applying."
+          },
+          "job_opening_id": {
+            "kind": "fk",
+            "ref": "job_openings.id",
+            "description": "Reference to the job opening applied for."
+          },
+          "status": {
+            "kind": "enum",
+            "values": [
+              "Applied",
+              "Interviewing",
+              "Offer",
+              "Rejected"
+            ],
+            "description": "Current status of the application.",
+            "weights": [
+              5,
+              4,
+              2,
+              1
+            ]
+          },
+          "applied_at": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date of application.",
+            "dayProfile": "waking"
+          },
+          "application_date": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date when the application was submitted."
+          },
+          "interview_count": {
+            "kind": "int",
+            "min": 0,
+            "max": 3,
+            "distribution": "normal",
+            "description": "Number of interviews conducted for this application."
+          },
+          "candidate_rating": {
+            "kind": "int",
+            "min": 1,
+            "max": 5,
+            "distribution": "high",
+            "nullable": true,
+            "description": "Rating given to the candidate by the interviewer; null if not rated."
+          }
+        }
+      },
+      "interviews": {
+        "description": "Each row captures an interview conducted for an application, linked to candidates and interviewers.",
+        "rows": {
+          "per": "applications",
+          "via": "application_id",
+          "min": 1,
+          "max": 3,
+          "skew": "long-tail"
+        },
+        "columns": {
+          "id": {
+            "kind": "pk",
+            "description": "Unique identifier for the interview."
+          },
+          "application_id": {
+            "kind": "fk",
+            "ref": "applications.id",
+            "description": "Reference to the application being interviewed."
+          },
+          "interviewer": {
+            "kind": "fullName",
+            "description": "Name of the interviewer conducting the interview.",
+            "nullable": true
+          },
+          "score": {
+            "kind": "int",
+            "min": 1,
+            "max": 10,
+            "description": "Score given by the interviewer for the interview.",
+            "nullable": true,
+            "distribution": "high"
+          },
+          "interviewed_at": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date and time of the interview.",
+            "dayProfile": "business"
+          }
+        }
+      },
+      "offers": {
+        "description": "Each row represents an offer made to a candidate, linked to their application.",
+        "rows": {
+          "per": "applications",
+          "via": "application_id",
+          "min": 0,
+          "max": 1,
+          "skew": "long-tail"
+        },
+        "columns": {
+          "id": {
+            "kind": "pk",
+            "description": "Unique identifier for the offer."
+          },
+          "application_id": {
+            "kind": "fk",
+            "ref": "applications.id",
+            "description": "Reference to the application for which the offer is made."
+          },
+          "offer_status": {
+            "kind": "enum",
+            "values": [
+              "Accepted",
+              "Declined"
+            ],
+            "description": "Status of the offer made to the candidate.",
+            "weights": [
+              6,
+              2
+            ]
+          },
+          "offered_at": {
+            "kind": "datetime",
+            "from": "2022-01-01",
+            "to": "2023-12-31",
+            "description": "Date when the offer was made.",
+            "nullable": true,
+            "when": {
+              "column": "offer_status",
+              "in": [
+                "Accepted"
+              ]
+            },
+            "dayProfile": "business"
+          },
+          "salary": {
+            "kind": "decimal",
+            "min": 50000,
+            "max": 200000,
+            "scale": 2,
+            "description": "Salary offered to the candidate.",
+            "nullable": true,
+            "distribution": "long-tail"
+          }
+        }
+      }
+    },
+    "structure": "multi-table",
+    "traits": [
+      "timestamped",
+      "categorical",
+      "nullable"
+    ],
+    "analysisQuestions": [
+      "How many candidates have been interviewed for each job opening?",
+      "What is the average score given by interviewers?",
+      "Which job openings have the highest acceptance rate of offers?",
+      "What is the average time taken from application to offer?",
+      "How does the number of applications vary by department?"
+    ],
+    "suggestedQueries": [
+      {
+        "title": "Join Candidates and Applications",
+        "sql": "SELECT c.full_name, a.status FROM candidates c JOIN applications a ON c.id = a.candidate_id;",
+        "dialect": "postgres"
+      },
+      {
+        "title": "Count Applications by Job Opening",
+        "sql": "SELECT j.title, COUNT(a.id) as application_count FROM job_openings j LEFT JOIN applications a ON j.id = a.job_opening_id GROUP BY j.id;",
+        "dialect": "postgres"
+      },
+      {
+        "title": "Average Interview Score per Job Opening",
+        "sql": "SELECT j.title, AVG(i.score) as average_score FROM job_openings j JOIN applications a ON j.id = a.job_opening_id JOIN interviews i ON a.id = i.application_id GROUP BY j.id;",
+        "dialect": "postgres"
+      },
+      {
+        "title": "Time from Application to Offer",
+        "sql": "SELECT a.id, EXTRACT(DAY FROM o.offered_at - a.applied_at) as days_to_offer FROM applications a JOIN offers o ON a.id = o.application_id;",
+        "dialect": "postgres"
+      }
+    ],
+    "usageScenarios": [
+      {
+        "title": "HR Analytics Dashboard",
+        "body": "A human resources team can utilize this dataset to build a dashboard that visualizes the recruitment pipeline, tracking metrics such as the number of applications per job opening, interview scores, and offer acceptance rates. This dashboard can help identify trends and improve recruitment strategies."
+      },
+      {
+        "title": "Candidate Performance Evaluation",
+        "body": "Recruiters can use the data to evaluate candidate performance by analyzing interview scores and the progression of candidates through the various stages of the application process. This can help in understanding which candidate profiles are most successful."
+      },
+      {
+        "title": "Recruitment Process Optimization",
+        "body": "By exploring the relationships between job openings, applications, and offers, HR managers can identify bottlenecks in the recruitment process, such as long wait times for interviews or low offer acceptance rates, and adjust their strategies accordingly."
+      },
+      {
+        "title": "Training for Recruiters",
+        "body": "Training programs for new recruiters can use this dataset to simulate real-world scenarios in recruitment. They can practice SQL queries to extract insights, helping them understand how to manage candidate data effectively."
+      }
+    ]
+  },
+  "counts": {
+    "candidates": 200,
+    "job_openings": 100,
+    "applications": 506,
+    "interviews": 822,
+    "offers": 155
+  },
+  "stats": {
+    "job_openings": {
+      "rows": 100,
+      "columns": {
+        "id": {
+          "nulls": 0,
+          "distinct": 100,
+          "min": 1,
+          "max": 100
+        },
+        "title": {
+          "nulls": 19,
+          "distinct": 71
+        },
+        "department": {
+          "nulls": 0,
+          "distinct": 4,
+          "min": "Engineering",
+          "max": "Sales"
+        },
+        "created_at": {
+          "nulls": 0,
+          "distinct": 100,
+          "min": "2022-01-04 13:28:05",
+          "max": "2023-12-25 11:38:44"
+        },
+        "status": {
+          "nulls": 0,
+          "distinct": 2,
+          "min": "Closed",
+          "max": "Open"
+        }
+      }
+    },
+    "candidates": {
+      "rows": 200,
+      "columns": {
+        "id": {
+          "nulls": 0,
+          "distinct": 200,
+          "min": 1,
+          "max": 200
+        },
+        "full_name": {
+          "nulls": 0,
+          "distinct": 197,
+          "min": "Alice Klein",
+          "max": "Yusuf Smith"
+        },
+        "email": {
+          "nulls": 0,
+          "distinct": 197
+        },
+        "applied_at": {
+          "nulls": 0,
+          "distinct": 200,
+          "min": "2022-01-04 21:29:25",
+          "max": "2023-12-25 19:41:16"
+        }
+      }
+    },
+    "applications": {
+      "rows": 506,
+      "columns": {
+        "id": {
+          "nulls": 0,
+          "distinct": 506,
+          "min": 1,
+          "max": 506
+        },
+        "candidate_id": {
+          "nulls": 0,
+          "distinct": 200,
+          "min": 1,
+          "max": 200
+        },
+        "job_opening_id": {
+          "nulls": 0,
+          "distinct": 98,
+          "min": 1,
+          "max": 100
+        },
+        "status": {
+          "nulls": 0,
+          "distinct": 4,
+          "min": "Applied",
+          "max": "Rejected"
+        },
+        "applied_at": {
+          "nulls": 0,
+          "distinct": 506,
+          "min": "2022-01-02 08:23:48",
+          "max": "2023-12-31 19:44:47"
+        },
+        "application_date": {
+          "nulls": 0,
+          "distinct": 506,
+          "min": "2022-01-01 04:41:51",
+          "max": "2023-12-27 19:31:26"
+        },
+        "interview_count": {
+          "nulls": 0,
+          "distinct": 4,
+          "min": 0,
+          "max": 3
+        },
+        "candidate_rating": {
+          "nulls": 49,
+          "distinct": 5,
+          "min": 1,
+          "max": 5
+        }
+      }
+    },
+    "interviews": {
+      "rows": 822,
+      "columns": {
+        "id": {
+          "nulls": 0,
+          "distinct": 822,
+          "min": 1,
+          "max": 822
+        },
+        "application_id": {
+          "nulls": 0,
+          "distinct": 506,
+          "min": 1,
+          "max": 506
+        },
+        "interviewer": {
+          "nulls": 69,
+          "distinct": 713,
+          "min": "Alice Brown",
+          "max": "Zoe Young"
+        },
+        "score": {
+          "nulls": 75,
+          "distinct": 10,
+          "min": 1,
+          "max": 10
+        },
+        "interviewed_at": {
+          "nulls": 0,
+          "distinct": 822,
+          "min": "2022-01-02 10:41:21",
+          "max": "2023-12-31 17:23:24"
+        }
+      }
+    },
+    "offers": {
+      "rows": 155,
+      "columns": {
+        "id": {
+          "nulls": 0,
+          "distinct": 155,
+          "min": 1,
+          "max": 155
+        },
+        "application_id": {
+          "nulls": 0,
+          "distinct": 155,
+          "min": 2,
+          "max": 506
+        },
+        "offer_status": {
+          "nulls": 0,
+          "distinct": 2,
+          "min": "Accepted",
+          "max": "Declined"
+        },
+        "offered_at": {
+          "nulls": 40,
+          "distinct": 115,
+          "min": "2022-01-09 11:31:06",
+          "max": "2023-12-29 14:19:06"
+        },
+        "salary": {
+          "nulls": 16,
+          "distinct": 139,
+          "min": 50003.8,
+          "max": 199459.82
+        }
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "file": "csv/candidates.csv",
+      "format": "csv",
+      "table": "candidates",
+      "key": "datasets/recruiting-pipeline/v4/csv/candidates.csv",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/csv/candidates.csv",
+      "bytes": 12115,
+      "sha256": "dc6d6e69229403cf86156cc288f1026662849683222324d1e1cd3b46672d6ead",
+      "rows": 200,
+      "contentType": "text/csv; charset=utf-8"
+    },
+    {
+      "file": "csv/job_openings.csv",
+      "format": "csv",
+      "table": "job_openings",
+      "key": "datasets/recruiting-pipeline/v4/csv/job_openings.csv",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/csv/job_openings.csv",
+      "bytes": 5319,
+      "sha256": "bca19568d0ad8ea0daee354e603b86208012884e4e84bc2b50ca44071cb46f87",
+      "rows": 100,
+      "contentType": "text/csv; charset=utf-8"
+    },
+    {
+      "file": "csv/applications.csv",
+      "format": "csv",
+      "table": "applications",
+      "key": "datasets/recruiting-pipeline/v4/csv/applications.csv",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/csv/applications.csv",
+      "bytes": 32755,
+      "sha256": "68d3621e7bb49ac78fd8eecd6384253bf3ce1ba2e85cfea96883ac7ed0abbe37",
+      "rows": 506,
+      "contentType": "text/csv; charset=utf-8"
+    },
+    {
+      "file": "csv/interviews.csv",
+      "format": "csv",
+      "table": "interviews",
+      "key": "datasets/recruiting-pipeline/v4/csv/interviews.csv",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/csv/interviews.csv",
+      "bytes": 34492,
+      "sha256": "242516f399d447ac57f02afddee998aca54e2691c4de15e608e8cfec70aeca83",
+      "rows": 822,
+      "contentType": "text/csv; charset=utf-8"
+    },
+    {
+      "file": "csv/offers.csv",
+      "format": "csv",
+      "table": "offers",
+      "key": "datasets/recruiting-pipeline/v4/csv/offers.csv",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/csv/offers.csv",
+      "bytes": 6366,
+      "sha256": "4a9c20275c0423c06abba75dc45aa00dfa516a1bc70971e3a603e9ee3d7aecbd",
+      "rows": 155,
+      "contentType": "text/csv; charset=utf-8"
+    },
+    {
+      "file": "recruiting-pipeline.json",
+      "format": "json",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/recruiting-pipeline.json",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/recruiting-pipeline.json",
+      "bytes": 331989,
+      "sha256": "2f3987f38b0f98832e17611535600f0def9770afd68a464e152aa9398549d8ac",
+      "rows": null,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "file": "sql/postgres.sql",
+      "format": "sql-postgres",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/sql/postgres.sql",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/sql/postgres.sql",
+      "bytes": 123475,
+      "sha256": "5140ef3eec635baa39732a91f964a79e1a289df0fd999219498b0cc147ea1017",
+      "rows": null,
+      "contentType": "application/sql; charset=utf-8"
+    },
+    {
+      "file": "sql/mysql.sql",
+      "format": "sql-mysql",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/sql/mysql.sql",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/sql/mysql.sql",
+      "bytes": 122890,
+      "sha256": "beb3cf87fd3f4e5fa673a503d2bc342731c2c005a539b8d920551ef0d6f4e9fd",
+      "rows": null,
+      "contentType": "application/sql; charset=utf-8"
+    },
+    {
+      "file": "sql/mssql.sql",
+      "format": "sql-mssql",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/sql/mssql.sql",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/sql/mssql.sql",
+      "bytes": 127573,
+      "sha256": "e590c439569f9cb68838af9b3d7c69e560b6cff79da5bd22479135f36be3ee36",
+      "rows": null,
+      "contentType": "application/sql; charset=utf-8"
+    },
+    {
+      "file": "sql/sqlite.sql",
+      "format": "sql-sqlite",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/sql/sqlite.sql",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/sql/sqlite.sql",
+      "bytes": 122648,
+      "sha256": "f5f0751678c070dc34a2363d18e5a53b4cb814db272a00a9751879de26dde123",
+      "rows": null,
+      "contentType": "application/sql; charset=utf-8"
+    },
+    {
+      "file": "prisma/seed.ts",
+      "format": "prisma-seed",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/prisma/seed.ts",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/prisma/seed.ts",
+      "bytes": 283366,
+      "sha256": "18ea2c1c20505a238edaf62057cba381a027b04ebbab3d897226a9fc871f6a21",
+      "rows": null,
+      "contentType": "application/typescript; charset=utf-8"
+    },
+    {
+      "file": "django/fixtures.json",
+      "format": "django-fixture",
+      "table": null,
+      "key": "datasets/recruiting-pipeline/v4/django/fixtures.json",
+      "url": "https://database-sample-website.s3.eu-north-1.amazonaws.com/datasets/recruiting-pipeline/v4/django/fixtures.json",
+      "bytes": 410962,
+      "sha256": "ed218965bd513401a47f4cfd8bd02ef593246effc496e257011e9abe4481cd97",
+      "rows": null,
+      "contentType": "application/json; charset=utf-8"
+    }
+  ],
+  "publishedAt": 1788768140078,
+  "updatedAt": 1789096008304
+}
